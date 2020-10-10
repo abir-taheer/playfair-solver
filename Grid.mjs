@@ -1,22 +1,20 @@
-export class Grid {
-	constructor(letters) {
-		this.charMap = {};
+import normalize from './normalize.mjs';
 
-		this.items = letters
-			// Remove any weird characters
-			.toLocaleLowerCase()
-			// Remove non-letter-characters
-			.replace(/[^a-z]/, "")
+export default class Grid {
+	constructor(letters) {
+		this.letterMap = {};
+
+		this.items = normalize(letters)
 			// Split at every 5 characters
 			.match(/.{1,5}/g)
 			// Split each 5 char string into array of characters
 			.map((rowStr, row) =>
 				// Convert each character into a grid cell with its own column and row
-				rowStr.split("").map((letter, column) => {
-					// Add character location to a map for faster retrieval
-
-					this.charMap[letter] = { row, column };
-					return new Cell(letter, column, row, this);
+				rowStr.split('').map((letter, column) => {
+					// Add character to a map for faster retrieval
+					const cell = new Cell(letter, column, row, this);
+					this.letterMap[letter] = cell;
+					return cell;
 				})
 			);
 
@@ -40,12 +38,8 @@ export class Grid {
 	}
 
 	getCellByLetter(letter) {
-		const coords = this.charMap[letter];
-		if (coords) {
-			return this.getCellByCoordinates(coords.row, coords.column);
-		}
-
-		return null;
+		const cell = this.letterMap[letter];
+		return cell || null;
 	}
 }
 
@@ -62,5 +56,21 @@ class Cell {
 		const newColumn = (this.column + columnOffset) % this.grid.numColumns;
 
 		return this.grid.getCellByCoordinates(newRow, newColumn);
+	}
+
+	getEncodedLetter(otherPair){
+		if(otherPair.column === this.column){
+			return this.getAdjacent(1, 0);
+		}
+
+		if(otherPair.row === this.row){
+			return this.getAdjacent(0, 1);
+		}
+
+		return this.grid.getCellByCoordinates(this.row, otherPair.column);
+	}
+
+	toString(){
+		return this.value;
 	}
 }
