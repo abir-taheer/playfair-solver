@@ -1,5 +1,5 @@
 // Expects the string to be normalized
-export default function generatePairs(str) {
+module.exports = function generatePairs(str) {
 	const pairs = [];
 
 	for (let i = 0; i < str.length; i += 2) {
@@ -17,4 +17,4 @@ export default function generatePairs(str) {
 	}
 
 	return pairs;
-}
+};

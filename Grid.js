@@ -1,6 +1,6 @@
-import normalize from './normalize.mjs';
+const normalize = require("./normalize");
 
-export default class Grid {
+class Grid {
 	constructor(letters) {
 		this.letterMap = {};
 
@@ -74,3 +74,5 @@ class Cell {
 		return this.value;
 	}
 }
+
+module.exports = Grid;

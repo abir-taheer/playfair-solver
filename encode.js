@@ -1,10 +1,11 @@
-import Grid from './Grid.mjs';
-import normalize from './normalize.mjs';
-import generatePairs from './generatePairs.mjs';
+const normalize = require("./normalize");
+const Grid = require("./Grid");
+const generatePairs = require("./generatePairs");
+
 
 const alphabetWithoutJ = 'abcdefghiklmnopqrstuvwxyz';
 
-function encode(phrase, alphabet) {
+module.exports =  function encode(phrase, alphabet) {
 	const grid = new Grid(alphabet);
 	phrase = normalize(phrase);
 	const pairs = generatePairs(phrase);
