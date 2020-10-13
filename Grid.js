@@ -39,6 +39,7 @@ class Grid {
 
 	getCellByLetter(letter) {
 		const cell = this.letterMap[letter];
+
 		return cell || null;
 	}
 }
@@ -52,19 +53,31 @@ class Cell {
 	}
 
 	getAdjacent(rowOffset = 0, columnOffset = 0) {
-		const newRow = (this.row + rowOffset) % this.grid.numRows;
-		const newColumn = (this.column + columnOffset) % this.grid.numColumns;
+		const newRow = (this.row + rowOffset + this.grid.numRows) % this.grid.numRows;
+		const newColumn = (this.column + columnOffset + this.grid.numColumns) % this.grid.numColumns;
 
 		return this.grid.getCellByCoordinates(newRow, newColumn);
 	}
 
 	getEncodedLetter(otherPair){
 		if(otherPair.column === this.column){
-			return this.getAdjacent(1, 0);
+			return this.getAdjacent(0, 1);
 		}
 
 		if(otherPair.row === this.row){
-			return this.getAdjacent(0, 1);
+			return this.getAdjacent(1, 0);
+		}
+
+		return this.grid.getCellByCoordinates(this.row, otherPair.column);
+	}
+
+	getDecodedLetter(otherPair){
+		if(otherPair.column === this.column){
+			return this.getAdjacent(0, -1);
+		}
+
+		if(otherPair.row === this.row){
+			return this.getAdjacent(-1, 0);
 		}
 
 		return this.grid.getCellByCoordinates(this.row, otherPair.column);

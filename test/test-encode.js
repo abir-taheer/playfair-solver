@@ -1,9 +1,14 @@
 const encode = require('./../encode');
+const {expect} = require("chai");
+
 
 describe('#encode', () => {
 	const testCases = [
 		['WHITEHAT', 'PLAYFIREXMBCDGHKNOQSTUVWZ', 'ZGRUMDPV'],
 		['AGOODFOODBOOKISACOOKBOOK', 'PLAYFIREXMBCDGHKNOQSTUVWZ', 'YDQEQGASQGDKVTMKLDQEVTDKVT'],
+		['IAMJUSTJAMMINJELLY', 'ERTYUIOPASDFGQWHKLZXCVBNM', 'DQCSEIEPSNCSCATHZT'],
+		['TODAYISAGOODDAYTODIE', 'OZAKDIREXMBCVGHYNPQSTUFWL', 'UZMENRPDBKIMMENUIMBV']
+		['JIMJAMESJACK', 'QWERTYUIOPASDFGHKLZXCVBNM', 'PLPBYDBTDUSVVN']
 	];
 
 	it(`should encode the test phrases with a custom alphabet correctly`, function () {

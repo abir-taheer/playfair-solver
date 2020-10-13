@@ -2,8 +2,9 @@ const normalize = require("./normalize");
 const Grid = require("./Grid");
 const generatePairs = require("./generatePairs");
 
-module.exports =  function encode(phrase, alphabet) {
+module.exports = function decode(phrase, alphabet){
 	const grid = new Grid(alphabet);
+
 	phrase = normalize(phrase);
 	const pairs = generatePairs(phrase);
 
@@ -11,7 +12,6 @@ module.exports =  function encode(phrase, alphabet) {
 		const firstCell = grid.getCellByLetter(pair[0]);
 		const secondCell = grid.getCellByLetter(pair[1]);
 
-		return firstCell.getEncodedLetter(secondCell) + secondCell.getEncodedLetter(firstCell);
+		return firstCell.getDecodedLetter(secondCell) + secondCell.getDecodedLetter(firstCell);
 	}).join("");
 }
-
