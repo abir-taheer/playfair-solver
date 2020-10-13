@@ -5,5 +5,6 @@ module.exports = function normalize(str) {
 			.toLocaleUpperCase()
 			// Remove non-letter-characters
 			.replace(/[^A-Z]/g, '')
+			.replace(/J/g, 'I')
 	);
 }
